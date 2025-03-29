@@ -35,11 +35,11 @@ for epoch in range(epochs+1):
 
        y_pred = x_shuffled.dot(wts)+b
        #print(y_pred.shape)
-       error = y_pred-y_shuffled
+       error = y_shuffled-y_pred #actual_y-predicted_y so we will get negative sign before gradient
 
-       gradient_w = (2/batch_size)*(x_shuffled.T.dot(error)) #nxm-mX1 -> nX1 -> to flatten(n,)
+       gradient_w = -(2/batch_size)*(x_shuffled.T.dot(error)) #nxm-mX1 -> nX1 -> to flatten(n,)
        #print("grad_w",gradient_w.shape)
-       gradient_b = 2*np.mean(error)
+       gradient_b = -2*np.mean(error)
 
        wts -= alpha*gradient_w
        b -= alpha*gradient_b
